@@ -1,11 +1,6 @@
 
 <div class="btn-toolbar">
 	<div class="btn-group">
-		<?php echo CHtml::link("Posts", array('post/index'), array('class'=>'btn btn-default'));?>
-		<?php echo CHtml::link("Utilisateurs", array('user/index'), array('class'=>'btn btn-default'));?>
-	</div>
-	
-	<div class="btn-group">
 		<?php echo CHtml::link("Ajouter une entrée", array('addFood', 'category'=>Food::CAT_ENTRE), array('class'=>'btn btn-default'));?>
 		<?php echo CHtml::link("Ajouter un plat principal", array('addFood', 'category'=>Food::CAT_PRINCIPAL), array('class'=>'btn btn-default'));?>
 		<?php echo CHtml::link("Ajouter un dessert", array('addFood', 'category'=>Food::CAT_DESSERT), array('class'=>'btn btn-default'));?>
