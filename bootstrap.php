@@ -5,7 +5,7 @@ defined('YII_DEBUG') or define('YII_DEBUG', $enviro==='dev');
 $basePath = dirname(__FILE__);
 $appPath = "$basePath/app";
 
-require_once($basepath.'/framework/yii.php');
+require_once($basePath.'/framework/yii.php');
 
 $config = CMap::mergeArray(
 	include("$appPath/config/main.php"),
