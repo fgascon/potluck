@@ -35,5 +35,8 @@ return array(
 		'user'=>array(
 			'class'=>'WebUser',
 		),
+		'db'=>array(
+			'charset'=>'utf8',
+		),
 	),
 );
