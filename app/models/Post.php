@@ -1,6 +1,6 @@
 <?php
 
-class User extends ActiveRecord
+class Post extends ActiveRecord
 {
 	
 	public static function model($className=__CLASS__)
@@ -10,15 +10,14 @@ class User extends ActiveRecord
 	
 	public function tableName()
 	{
-		return 'user';
+		return 'post';
 	}
 	
 	public function rules()
 	{
 		return array(
-			array('name, username, pass', 'required'),
-			array('name, username, pass', 'length', 'max'=>255),
-			array('is_admin', 'boolean'),
+			array('name, content', 'required'),
+			array('name', 'length', 'max'=>255),
 		);
 	}
 }

@@ -1,6 +1,7 @@
 
 <div class="btn-toolbar">
 	<div class="btn-group">
+		<?php echo CHtml::link("Posts", array('post/index'), array('class'=>'btn btn-default'));?>
 		<?php echo CHtml::link("Utilisateurs", array('user/index'), array('class'=>'btn btn-default'));?>
 	</div>
 	

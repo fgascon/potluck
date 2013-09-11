@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends BaseAdminController
+class PostController extends BaseAdminController
 {
 	
 	public function actionIndex()
@@ -10,7 +10,7 @@ class UserController extends BaseAdminController
 	
 	public function actionCreate()
 	{
-		$model = new User();
+		$model = new Post();
 		$this->saveModel($model);
 		$this->render('create', array(
 			'model'=>$model,
@@ -32,13 +32,13 @@ class UserController extends BaseAdminController
 			throw new CHttpException(400, "Invalid request");
 		$model = $this->loadModel($id);
 		if(!$model->delete())
-			throw new CHttpException(500, "Failed to delete user");
+			throw new CHttpException(500, "Failed to delete post");
 		$this->redirect(array('index'));
 	}
 	
 	protected function loadModel($id)
 	{
-		$model = User::model()->findByPk($id);
+		$model = Post::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404, "Not found");
 		return $model;
@@ -46,9 +46,9 @@ class UserController extends BaseAdminController
 	
 	protected function saveModel($model)
 	{
-		if(isset($_POST['User']))
+		if(isset($_POST['Post']))
 		{
-			$model->attributes = $_POST['User'];
+			$model->attributes = $_POST['Post'];
 			if($model->save())
 				$this->redirect(array('index'));
 		}

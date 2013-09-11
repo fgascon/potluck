@@ -23,6 +23,13 @@
 		<?php echo $form->error($model,'pass');?>
 	</div>
 	
+	<div class="checkbox">
+		<label>
+			<?php echo $form->checkBox($model, 'is_admin');?>
+			<?php echo CHtml::encode($model->getAttributeLabel('is_admin'));?>
+		</label>
+	</div>
+	
 	<button type="submit" class="btn btn-default">Enregistrer</button>
 	
 	<?php $this->endWidget('CActiveForm');?>
