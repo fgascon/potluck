@@ -3,8 +3,36 @@
 class SiteController extends Controller
 {
 	
-	public function actionIndex()
+	public $defaultAction = 'login';
+	
+	public function actionLogin()
 	{
+		if(!Yii::app()->user->isGuest)
+			$this->redirect(array('info'));
+		
+		$model = new LoginForm();
+		if(isset($_POST['LoginForm']))
+		{
+			$model->attributes = $_POST['LoginForm'];
+			if($model->validate() && $model->login())
+				$this->redirect(isset($_GET['return']) ? $_GET['return'] : array('info'));
+		}
+		$this->render('login', array(
+			'model'=>$model,
+		));
+	}
+	
+	public function actionLogout()
+	{
+		Yii::app()->user->logout();
+		$this->redirect(array('login'));
+	}
+	
+	public function actionInfo()
+	{
+		if(Yii::app()->user->isGuest)
+			$this->redirect(array('login'));
+		
 		$this->layout = 'connected';
 		$posts = Post::model()->findAll(array(
 			'order'=>'created_at DESC',
@@ -16,6 +44,9 @@ class SiteController extends Controller
 	
 	public function actionPotluck()
 	{
+		if(Yii::app()->user->isGuest)
+			$this->redirect(array('login'));
+		
 		$this->layout = 'connected';
 		$foods = array(
 			Food::CAT_ENTRE=>array(),

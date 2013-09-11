@@ -14,8 +14,9 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<?php foreach(array(
-					'site/index'=>"Infos",
+					'site/info'=>"Infos",
 					'site/potluck'=>"Potluck",
+					'site/logout'=>"Quitter",
 				) as $url=>$label):?>
 				<li class="<?php echo $this->route===$url ? 'active' : '';?>">
 					<a href="<?php echo $this->createUrl($url);?>"><?php echo CHtml::encode($label);?></a>

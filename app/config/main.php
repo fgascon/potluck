@@ -17,6 +17,14 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
+			'rules'=>array(
+				''=>'site/login',
+				'logout'=>'site/logout',
+				'info'=>'site/info',
+				'potluck'=>'site/potluck',
+				'admin'=>'admin/index',
+				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+			),
 		),
 		'errorHandler'=>array(
             'errorAction'=>'/site/error',
