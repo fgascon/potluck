@@ -1,19 +1,25 @@
+<?php Yii::app()->clientScript->registerPackage('jquery')->registerScriptFile($this->assets.'/js/app.js');?>
+
 <?php foreach(Food::categoriesNames() as $category=>$categoryLabel):?>
 	
-	<h2><?php echo CHtml::encode($categoryLabel);?></h2>
 	<div class="food-category">
-	<?php foreach($foods[$category] as $food):?>
-		<div>
-			<?php if(empty($food->description)):?>
-				<input type="text">
-			<?php else:?>
-				<?php echo CHtml::encode($food->description);?>
-				<?php if($food->user_id):?>
-					<?php echo CHtml::encode($food->user->name);?>
-				<?php endif;?>
-			<?php endif;?>
-		</div>
-	<?php endforeach;?>
+		<h2><?php echo CHtml::encode($categoryLabel);?></h2>
+		<?php foreach($foodsByCategories[$category] as $food):?>
+			<div class="food" data-id="<?php echo $food->id;?>">
+				<input type="text" class="attr-description"<?php if(!empty($food->user_id) && $food->user_id!=Yii::app()->user->id):?> disabled="disabled"<?php endif;?>>
+				<span class="attr-user">
+					<?php if($food->user_id) echo CHtml::encode($food->user->name);?>
+				</span>
+			</div>
+		<?php endforeach;?>
 	</div>
 	
 <?php endforeach;?>
+
+<script>
+App.endpoint = "<?php echo Yii::app()->request->baseUrl;?>";
+jQuery(function($){
+	App.setFood(<?php echo CJSON::encode($foods);?>);
+	App.bindFood($('.food'));
+});
+</script>

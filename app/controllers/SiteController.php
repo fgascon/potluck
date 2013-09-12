@@ -48,19 +48,39 @@ class SiteController extends Controller
 			$this->redirect(array('login'));
 		
 		$this->layout = 'connected';
-		$foods = array(
+		$foodsByCategories = array(
 			Food::CAT_ENTRE=>array(),
 			Food::CAT_PRINCIPAL=>array(),
 			Food::CAT_DESSERT=>array(),
 		);
-		$models = Food::model()->findAll();
-		foreach($models as $model)
+		$foods = Food::model()->findAll();
+		foreach($foods as $food)
 		{
-			$foods[$model->category][] = $model;
+			$foodsByCategories[$food->category][] = $food;
 		}
 		$this->render('potluck', array(
 			'foods'=>$foods,
+			'foodsByCategories'=>$foodsByCategories,
 		));
+	}
+	
+	public function actionChange($id)
+	{
+		if(!isset($_POST['description']))
+			throw new CHttpException(400, "Invalid request");
+		$model = Food::model()->findByPk($id);
+		if($model === null)
+			throw new CHttpException(404, "Not found");
+		
+		if($model->user_id && $model->user_id != Yii::app()->user->id)
+			throw new CHttpException(403, "Not allowed");
+		
+		$model->description = $_POST['description'];
+		$model->user_id = Yii::app()->user->id;
+		if(!$model->save())
+			throw new CHttpException(500, "Failed to save");
+		
+		return 'OK';
 	}
 	
 	public function actionError()

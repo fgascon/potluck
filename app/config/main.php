@@ -22,6 +22,7 @@ return array(
 				'logout'=>'site/logout',
 				'info'=>'site/info',
 				'potluck'=>'site/potluck',
+				'change'=>'site/change',
 				'admin'=>'admin/index',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
