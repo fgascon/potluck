@@ -26,10 +26,8 @@
 		</div>
 	</nav>
 	
-	<div class="container">
-		<div class="content">
-    		<?php echo $content;?>
-		</div>
+	<div id="content">
+		<?php echo $content;?>
 	</div>
 	
 <?php $this->endContent();?>

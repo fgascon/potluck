@@ -1,6 +1,8 @@
 
-<?php foreach($posts as $post):?>
-<article>
-	<?php echo $post->content;?>
-</article>
-<?php endforeach;?>
+<section id="section-posts" class="container container-narrow">
+	<?php foreach($posts as $post):?>
+	<article class="post well">
+		<?php echo $post->content;?>
+	</article>
+	<?php endforeach;?>
+</section>
