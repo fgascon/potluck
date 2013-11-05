@@ -14,12 +14,14 @@
 		'categoryName',
 		array(
 			'name'=>'user.name',
-			'header'=>"User",
+			'header'=>"Personne",
 		),
 		'description',
 		array(
 			'class'=>'zii.widgets.grid.CButtonColumn',
 			'template'=>'{update} {delete}',
+			'updateButtonUrl'=>'Yii::app()->getController()->createUrl("food/update", array("id"=>$data->id))',
+			'deleteButtonUrl'=>'Yii::app()->getController()->createUrl("food/delete", array("id"=>$data->id))',
 		),
 	),
 ));?>

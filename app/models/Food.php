@@ -65,4 +65,14 @@ class Food extends ActiveRecord
 	{
 		return self::categoryLabel($this->category);
 	}
+	
+	public function attributeLabels()
+	{
+		return array(
+			'category'=>"Categorie",
+			'categoryName'=>"Categorie",
+			'user_id'=>"Personne",
+			'description'=>"Description",
+		);
+	}
 }
