@@ -1,3 +1,20 @@
+html {   
+  background: url(http://www.kamariage.com/wp-content/uploads/2013/09/Sindy_Julien_Wedding_01051.jpg) no-repeat center center fixed;   
+  -webkit-background-size: cover;  
+  -moz-background-size: cover;  
+  -o-background-size: cover;  
+  background-size: cover;  
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.kamariage.com/wp-content/uploads/2013/09/Sindy_Julien_Wedding_01051.jpg', sizingMethod='scale')";
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.http://www.kamariage.com/wp-content/uploads/2013/09/Sindy_Julien_Wedding_01051.jpg', sizingMethod='scale');
+}
+
+body{
+	background: transparent;
+}
+
+.navbar{
+	margin-top: 8px;
+}
 
 .form .errorMessage{
 	color: #B94A48;
@@ -9,4 +26,31 @@
 
 .container-narrow{
 	max-width: 600px;
+}
+
+article,
+#section-potluck .panel,
+.navbar.navbar-default{
+	background: #fff;
+	background: rgba(255,255,255,0.65);
+	border-radius: 8px;
+	border: solid 1px #aaa;
+	box-shadow: 2px 2px 12px rgba(0,0,0,0.2);
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus,
+#section-potluck .panel-default>.panel-heading{
+	background-color: rgba(245, 245, 245, 0.7);
+}
+
+#section-potluck .list-group-item{
+	background: transparent;
+}
+
+article{
+	padding: 20px;
+}
+
+article hr{
+	border-top: 1px solid #999;
 }

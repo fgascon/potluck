@@ -1,6 +1,6 @@
 <?php $this->beginContent('//layouts/main');?>
 	
-	<nav class="navbar navbar-default" role="navigation">
+	<nav class="navbar navbar-default container container-narrow" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 				<span class="sr-only">Navigation</span>
