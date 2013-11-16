@@ -35,7 +35,7 @@ class SiteController extends Controller
 		
 		$this->layout = 'connected';
 		$posts = Post::model()->findAll(array(
-			'order'=>'created_at DESC',
+			'order'=>'position ASC',
 		));
 		$this->render('index', array(
 			'posts'=>$posts,
@@ -76,7 +76,10 @@ class SiteController extends Controller
 			throw new CHttpException(403, "Not allowed");
 		
 		$model->description = $_POST['description'];
-		$model->user_id = Yii::app()->user->id;
+		if(empty($model->description))
+			$model->user_id = null;
+		else
+			$model->user_id = Yii::app()->user->id;
 		if(!$model->save())
 			throw new CHttpException(500, "Failed to save");
 		

@@ -130,11 +130,8 @@ App = (function($){
 		});
 	};
 	
-	App.test = function(input, div){
-		var model = observer();
-		model.set('test', "Initial value");
-		bindStatic(model, 'test', $(div));
-		bindDynamic(model, 'test', $(input));
+	App.initComments = function(elems){
+		
 	};
 	
 	return App;

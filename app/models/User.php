@@ -18,6 +18,7 @@ class User extends ActiveRecord
 		return array(
 			array('name, username, pass', 'required'),
 			array('name, username, pass', 'length', 'max'=>255),
+			array('username', 'unique'),
 			array('is_admin', 'boolean'),
 		);
 	}

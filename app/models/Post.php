@@ -16,8 +16,9 @@ class Post extends ActiveRecord
 	public function rules()
 	{
 		return array(
-			array('name, content', 'required'),
+			array('name, content, position', 'required'),
 			array('name', 'length', 'max'=>255),
+			array('position', 'numerical', 'integerOnly'=>true),
 		);
 	}
 }

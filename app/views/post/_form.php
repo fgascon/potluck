@@ -11,6 +11,12 @@
 		<?php echo $form->error($model,'name');?>
 	</div>
 	
+	<div class="form-group <?php echo $model->hasErrors('position')?'has-error':'';?>">
+		<?php echo $form->label($model,'position', array('class'=>'control-label'));?>
+		<?php echo $form->textField($model,'position', array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'position');?>
+	</div>
+	
 	<div class="form-group <?php echo $model->hasErrors('content')?'has-error':'';?>">
 		<?php echo $form->label($model,'content', array('class'=>'control-label'));?>
 		<?php echo $form->textArea($model,'content', array('class'=>'form-control', 'rows'=>10)); ?>

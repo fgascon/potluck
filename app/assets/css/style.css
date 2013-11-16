@@ -49,8 +49,15 @@ article,
 
 article{
 	padding: 20px;
+	margin-bottom: 25px;
 }
 
 article hr{
 	border-top: 1px solid #999;
+}
+
+.admin-content{
+	background: #fff;
+	border: solid 1px #eee;
+	padding: 10px;
 }
