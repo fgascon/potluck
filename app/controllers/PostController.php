@@ -36,6 +36,38 @@ class PostController extends BaseAdminController
 		$this->redirect(array('index'));
 	}
 	
+	public function actionUpdateComment($id)
+	{
+		$model = Comment::model()->findByPk($id);
+		if($model === null)
+			throw new CHttpException(404, "Not found");
+		if(isset($_POST['Comment']))
+		{
+			$model->attributes = $_POST['Comment'];
+			if($model->save())
+				$this->redirect(array('update', 'id'=>$model->post_id));
+		}
+		$this->render('updateComment', array(
+			'model'=>$model,
+		));
+	}
+	
+	public function actionDeleteComment($id)
+	{
+		if(!Yii::app()->request->isPostRequest)
+			throw new CHttpException(400, "Invalid request");
+		
+		$model = Comment::model()->findByPk($id);
+		if($model === null)
+			throw new CHttpException(404, "Not found");
+		
+		if(!$model->delete())
+			throw new CHttpException(500, "Failed to delete comment");
+		
+		if(!Yii::app()->request->isAjaxRequest)
+			$this->redirect(array('update', 'id'=>$model->post_id));
+	}
+	
 	protected function loadModel($id)
 	{
 		$model = Post::model()->findByPk($id);
