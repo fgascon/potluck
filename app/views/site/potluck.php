@@ -1,3 +1,7 @@
+<?php
+$realUserName = Yii::app()->user->realName;
+?>
+
 <?php Yii::app()->clientScript->registerPackage('jquery')->registerScriptFile($this->assets.'/js/app.js');?>
 
 <section id="section-potluck" class="container">
@@ -20,7 +24,7 @@
 					<input type="text" class="attr-description" placeholder="Inscrivez votre plat ici"<?php if(!empty($food->user_id) && $food->user_id!=Yii::app()->user->id):?> disabled="disabled"<?php endif;?>>
 					<span class="attr-user<?php if(!$food->user_id) echo " hidden";?>">
 						<small>Contribution de</small>
-						<strong class="name"><?php if($food->user_id) echo CHtml::encode($food->user->name);?></strong>
+						<strong class="name"><?php echo CHtml::encode($food->user_id ? $food->user->name : $realUserName);?></strong>
 					</span>
 				</li>
 			<?php endforeach;?>

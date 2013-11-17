@@ -21,4 +21,12 @@ class Post extends ActiveRecord
 			array('position', 'numerical', 'integerOnly'=>true),
 		);
 	}
+	
+	public function relations()
+	{
+		return array(
+			'comments'=>array(self::HAS_MANY, 'Comment', 'post_id'),
+			'commentsCount'=>array(self::STAT, 'Comment', 'post_id'),
+		);
+	}
 }

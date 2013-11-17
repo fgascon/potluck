@@ -21,12 +21,19 @@ class Comment extends ActiveRecord
 		);
 	}
 	
+	public function relations()
+	{
+		return array(
+			'user'=>array(self::BELONGS_TO, 'User', 'user_id'),
+		);
+	}
+	
 	public function attributeLabels()
 	{
 		return array(
 			'post_id'=>"Article",
 			'user_id'=>"Personne",
-			'created_date'=>"Date",
+			'date_created'=>"Date",
 			'content'=>"Contenu",
 		);
 	}
@@ -36,7 +43,7 @@ class Comment extends ActiveRecord
 		if(parent::beforeSave())
 		{
 			$this->user_id = Yii::app()->user->id;
-			$this->created_date = date('Y-m-d H:i:s');
+			$this->date_created = date('Y-m-d H:i:s');
 			return true;
 		}
 		else

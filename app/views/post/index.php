@@ -7,6 +7,7 @@
 	'columns'=>array(
 		'name',
 		'created_at',
+		'position',
 		array(
 			'class'=>'zii.widgets.grid.CButtonColumn',
 			'template'=>'{update} {delete}',

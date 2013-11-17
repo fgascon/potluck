@@ -3,13 +3,24 @@
 	<?php foreach($posts as $post):?>
 	<article class="post">
 		<?php echo $post->content;?>
-		<hr class="hidden">
-		<div class="comments hidden">
-			
+		<hr>
+		<div class="comments" data-post-id="<?php echo $post->id;?>">
+			<a href="#" class="show-comments">
+				<?php if($post->commentsCount == 0):?>
+					Aucun commentaire
+				<?php elseif($post->commentsCount == 1):?>
+					1 commentaire
+				<?php else:?>
+					<?php echo $post->commentsCount;?> commentaires
+				<?php endif;?>
+			</a>
+			<div class="comments-list"></div>
+			<form class="new-comment" method="post" action="<?php echo $this->createUrl('comments/create', array('post_id'=>$post->id));?>">
+				<strong><small>Écrire un commentaire:</small></strong>
+				<div class="errors"></div>
+				<textarea name="content"></textarea>
+			</form>
 		</div>
-		<form class="new-comment hidden" method="post" action="<?php echo $this->createUrl('comment/post');?>">
-			<textarea name="[Comment]content"></textarea>
-		</form>
 	</article>
 	<?php endforeach;?>
 </section>
@@ -18,6 +29,6 @@
 <script>
 App.endpoint = "<?php echo Yii::app()->request->baseUrl;?>";
 jQuery(function($){
-	App.initComments($('.new-comment'));
+	App.initComments($('.comments'));
 });
 </script>

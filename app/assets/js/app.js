@@ -39,7 +39,7 @@ App = (function($){
 		var event = new EventListener();
 		return {
 			get: function(name){
-				return obj[name]
+				return obj[name];
 			},
 			set: function(name, value, options){
 				var oldValue = obj[name];
@@ -54,7 +54,7 @@ App = (function($){
 			off: function(name, handler){
 				event.off(name, handler);
 			}
-		}
+		};
 	};
 	
 	var bindStatic = function(model, name, $elem){
@@ -63,10 +63,12 @@ App = (function($){
 		});
 		$elem.html(model.get(name));
 	};
-	var bindDynamic = function(model, name, $elem){
-		model.on(name, function(value){
-			$elem.val(value);
-		});
+	var bindDynamic = function(model, name, $elem, noListener){
+		if(!noListener){
+			model.on(name, function(value){
+				$elem.val(value);
+			});
+		}
 		$elem.val(model.get(name));
 		$elem.on('keyup', function(){
 			model.set(name, $elem.val());
@@ -121,17 +123,100 @@ App = (function($){
 			var $elem = $(elem);
 			var id = $elem.data('id');
 			var food = foodList[id];
-			bindDynamic(food, 'description', $elem.find('.attr-description'));
+			bindDynamic(food, 'description', $elem.find('.attr-description'), true);
 			bindStatic(food, 'user', $elem.find('.attr-user'));
 			
 			food.on('description', throttle(function(value){
-				$.post(App.endpoint+'/change?id='+id, {description: value});
+				$.post(App.endpoint+'/change?id='+id, {description: value}, function(){
+					if(value){
+						$elem.find('.attr-user').removeClass('hidden');
+					}else{
+						$elem.find('.attr-user').addClass('hidden');
+					}
+				});
 			}, 500));
 		});
 	};
 	
-	App.initComments = function(elems){
+	function initComment(elem){
+		var postId = elem.data('post-id');
+		var newCommentForm = elem.find('.new-comment');
+		var comments = elem.find('.comments-list');
 		
+		var commentMeta = observer({
+			showCommentsText: elem.find('.show-comments').html(),
+			formErrors: '',
+			textarea: ''
+		});
+		bindStatic(commentMeta, 'showCommentsText', elem.find('.show-comments'));
+		bindStatic(commentMeta, 'formErrors', newCommentForm.find('.errors'));
+		bindDynamic(commentMeta, 'textarea', newCommentForm.find('textarea'));
+		
+		comments.hide();
+		elem.find('.show-comments').click(function(evt){
+			evt.preventDefault();
+			comments.slideToggle(250);
+		});
+		refreshComments();
+		
+		function refreshComments(){
+			$.get(App.endpoint + '/comments/list?post_id=' + postId, function(result){
+				comments.html('');
+				if(result.length == 0){
+					commentMeta.set('showCommentsText', "Aucun commentaire");
+				}else{
+					if(result.length == 1){
+						commentMeta.set('showCommentsText', "1 commentaire");
+					}else{
+						commentMeta.set('showCommentsText', result.length + " commentaires");
+					}
+					for(var i in result)
+						comments.append(generateComment(result[i]));
+				}
+			});
+		}
+		function generateComment(comment){
+			return $('<div class="comment"></div>')
+				.append($('<div class="user"></div>').text(comment.user.name))
+				.append($('<div class="content"></div>').text(comment.content));
+		}
+		
+		function submitComment(){
+			var commentContent = commentMeta.get('textarea');
+			commentMeta.set('textarea', '');
+			$.post(newCommentForm.attr('action'), {content: commentContent}, function(data){
+				if(data.result == 'success'){
+					refreshComments();
+				}else{
+					if(data.error){
+						commentMeta.set('formErrors', data.error);
+					}else if(data.errors){
+						var errors = [];
+						var index;
+						for(var attribute in data.errors){
+							for(index in data.errors[attribute])
+								errors.push(data.errors[attribute][index]);
+						}
+						commentMeta.set('formErrors', errors.join("<br>\n"));
+					}else{
+						commentMeta.set('formErrors', "Erreur inconnue");
+					}
+				}
+			});
+		}
+		newCommentForm.on('keypress', function(evt){
+			commentMeta.set('formErrors', '');
+			if(evt.which === 13){
+				evt.preventDefault();
+				submitComment();
+			}
+		});
+	}
+	
+	App.initComments = function(elems){
+		elems.each(function(){
+			initComment($(this));
+		});
 	};
 	
 	return App;
