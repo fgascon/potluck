@@ -6,7 +6,7 @@ App = (function($){
 	EventListener.prototype.emit = function(event){
 		if(this._listeners[event]){
 			var params = [].slice.call(arguments, 1);
-			var handlers = this._listeners[event]
+			var handlers = this._listeners[event];
 			for(var index in handlers){
 				handlers[index].apply(this, params);
 			}
@@ -218,6 +218,46 @@ App = (function($){
 			initComment($(this));
 		});
 	};
+	
+	App.countdown = function(elem, targetDate){
+		var targetTime = targetDate.getTime();
+		function refreshTime(){
+			var timespan = targetTime - (new Date()).getTime();
+			elem.html(timespanToText(timespan));
+		}
+		setTimeout(refreshTime, 0);
+		setInterval(refreshTime, 1000);
+	};
+	
+	function timespanToText(timespan){
+		if(timespan <= 0){
+			return '';
+		}else{
+			var exploded = explodeTimespan(timespan);
+			var text = [];
+			for(var name in exploded){
+				if(text.length > 0 || exploded[name] > 0)
+					text.push(exploded[name] + " " + name + (exploded[name]>1?'s':''));
+			}
+			return text.join(' ');
+		}
+	}
+	
+	function explodeTimespan(timespan){
+		var seconds = Math.floor(timespan / 1000);
+		var days = Math.floor(seconds / (24*3600));
+		seconds -= days * 24*3600;
+		var hours = Math.floor(seconds / 3600);
+		seconds -= hours * 3600;
+		var minutes = Math.floor(seconds / 60);
+		seconds -= minutes * 60;
+		return {
+			jour: days,
+			heure: hours,
+			minute: minutes,
+			seconde: seconds
+		};
+	}
 	
 	return App;
 	
