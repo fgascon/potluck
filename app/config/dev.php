@@ -31,8 +31,8 @@ return array(
 		),
 		'db'=>array(
 			'connectionString'=>'mysql:host=127.0.0.1;dbname=potluck',
-			'username'=>'root',
-			'password'=>'',
+			'username'=>'potluck',
+			'password'=>'potluck',
 			'emulatePrepare'=>true,
 		),
 	),
