@@ -7,6 +7,7 @@
 	'columns'=>array(
 		'name',
 		'username',
+		'presence',
 		'is_admin',
 		array(
 			'class'=>'zii.widgets.grid.CButtonColumn',

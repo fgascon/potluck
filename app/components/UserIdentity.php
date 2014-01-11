@@ -27,6 +27,7 @@ class UserIdentity extends CUserIdentity
 				$this->errorCode = self::ERROR_NONE;
 				$this->setState('realName', $user->name);
 				$this->setState('_is_admin', !!$user->is_admin);
+				$this->setState('_presence', $user->presence);
 			}
 		}
 		return $this->errorCode === self::ERROR_NONE;

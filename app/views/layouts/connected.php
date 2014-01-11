@@ -10,7 +10,6 @@
 			</button>
 			<a class="navbar-brand" href="#">
 				Myriam &amp; Fr&eacute;d&eacute;ric
-				<!--<img src="<?php echo $this->assets;?>/images/logo.png" alt="Myriam &amp; Fr&eacute;d&eacute;ric" width="123" height="92">-->
 			</a>
 		</div>
 		
@@ -28,6 +27,24 @@
 			</ul>
 		</div>
 	</nav>
+	
+	<div class="container container-narrow<?php echo Yii::app()->user->presence === null ? "" : " hidden";?>">
+		<div class="jumbotron">
+			<p>Veuillez confirmer votre présence.</p>
+			<p>
+				<form method="post">
+					<?php echo CHtml::link("Je serai présent", '#oui', array(
+						'class'=>'btn btn-success btn-lg',
+						'submit'=>array('/site/presence', 'presence'=>'oui'),
+					));?>
+					<?php echo CHtml::link("Je ne serai pas présent", '#non', array(
+						'class'=>'btn btn-danger btn-lg',
+						'submit'=>array('/site/presence', 'presence'=>'non'),
+					));?>
+				</form>
+			</p>
+		</div>
+	</div>
 	
 	<div id="content">
 		<?php echo $content;?>

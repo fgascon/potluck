@@ -23,6 +23,15 @@
 		<?php echo $form->error($model,'pass');?>
 	</div>
 	
+	<div class="form-group <?php echo $model->hasErrors('presence')?'has-error':'';?>">
+		<?php echo $form->label($model,'presence', array('class'=>'control-label'));?>
+		<?php echo $form->dropDownList($model,'presence', array(
+			'oui'=>"Oui",
+			'non'=>"Non",
+		), array('class'=>'form-control', 'prompt'=>""));?>
+		<?php echo $form->error($model,'presence');?>
+	</div>
+	
 	<div class="checkbox">
 		<label>
 			<?php echo $form->checkBox($model, 'is_admin');?>

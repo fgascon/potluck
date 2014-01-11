@@ -49,6 +49,8 @@ class UserController extends BaseAdminController
 		if(isset($_POST['User']))
 		{
 			$model->attributes = $_POST['User'];
+			if(!$model->presence)
+				$model->presence = null;
 			if($model->save())
 				$this->redirect(array('index'));
 		}

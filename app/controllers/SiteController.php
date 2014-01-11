@@ -86,6 +86,28 @@ class SiteController extends Controller
 		return 'OK';
 	}
 	
+	public function actionPresence($presence)
+	{
+		$user = Yii::app()->user;
+		if($user->isGuest)
+			$this->redirect(array('login'));
+		
+		if(!Yii::app()->request->isPostRequest)
+			throw new CHttpException(400, "Invalid request");
+		
+		$model = User::model()->findByPk($user->id);
+		if($model === null)
+			$this->redirect(array('login'));
+		
+		$model->presence = $presence;
+		if(!$model->save())
+			throw new CHttpException(500, "Failed to confirm presence");
+		$user->setPresence($model->presence);
+		
+		if(!Yii::app()->request->isAjaxRequest)
+			$this->redirect(array('info'));
+	}
+	
 	public function actionError()
 	{
 		if($error = Yii::app()->errorHandler->error)
