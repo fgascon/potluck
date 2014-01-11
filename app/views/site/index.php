@@ -30,6 +30,6 @@
 App.endpoint = "<?php echo Yii::app()->request->baseUrl;?>";
 jQuery(function($){
 	App.initComments($('.comments'));
-	//App.countdown($('.countdown'), new Date(2014, 10, 17, 0, 0, 0));
+	App.countdown($('.countdown'), new Date(2014, 5, 3, 0, 0, 0));
 });
 </script>
